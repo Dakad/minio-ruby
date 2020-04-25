@@ -26,6 +26,44 @@ Or install it yourself as:
 gem install minio-ruby
 ```
 
+## Usage
+
+### Initialize the client
+
+```
+require 'minio'
+
+MinioRuby::Client.configure do |cfg|
+  cfg.endpoint = "<minio-server-endpoint>"
+  cfg.access_key = "<my-access-key>"
+  cfg.secret_key = "<my-secret-key>"
+end
+client = MinioRuby::Client.new
+```
+
+### Interact with the MinIO server
+
+```
+# List the buckets
+client.list_buckets
+
+# Create new bucket
+client.make_bucket "my-bucket-1"
+
+# Check if bucket exists
+client.bucket_exists? "my-bucket-1"
+
+# Put object
+client.put_object("my-bucket-1", "my-file.txt", File.read("my-object.txt"))
+
+# Get object
+client.get_object "my-bucket-1", "my-file.txt"
+
+# remove bucket
+client.remove_bucket "my-bucket-1"
+
+```
+
 ## Development
 
 To build the minio gem yourself
